@@ -1,0 +1,45 @@
+{% extends "base.jinja2" %}
+
+{% block title %}About{% endblock %}
+{% block content %}
+
+<p>
+<b>Advent of Code @ TomTom</b> is something I work on when <a href="https://adventofcode.com">Advent of Code</a>
+puzzles are finished too quickly. It shows private leaderboards that are missing from the official site.
+</p>
+
+<p>
+The <a href="{{ url_for('scores', year=THISYEAR) }}">leaderboard</a> is similar to that on the official site,
+but on the <a href="{{ url_for('scores_per_day', year=THISYEAR) }}">leaderboard per day</a>  you can see at what time the people you compete
+with finished the puzzle for every day.
+</p>
+<p>
+The <a href="{{ url_for('stats', year=THISYEAR) }}">completion stats</a> show how many contestant finished the puzzles
+for each day in pretty bar graphs. Note that it will show all current contestants in all years: Some may have moved on,
+some weren't active in earlier years.
+</p>
+<p>
+The <a href="{{ url_for('gold', year=THISYEAR) }}">time to get the second star</a> is the only measure we have for puzzle
+solving speed. Many participants in our time zone don't start solving puzzles when they unlock; that is 6 o'clock in the
+morning. So the official scoring reflects how early contestants got up. This effect is particularly strong in the early
+days of the year, when the puzzles don't take too long to solve. The time passed between getting the first star and
+the second star, though, shows how much time it took you to finish the second part, assuming you did it straight after
+the first part. The <a href="{{ url_for('gold_per_day', year=THISYEAR) }}">time to get the second star per day</a> shows
+how contestants were doing for each day.
+</p>
+<p>
+<b>How does this work?</b> Advent of Code maintains an
+<a href="https://adventofcode.com/2020/leaderboard/private/view/437700">API</a>, where you can get the raw data. After
+some filtering and sorting, the leaderboards are created.
+</p>
+<p>
+I use <a href="https://www.python.org/">Python</a>, <a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a> and
+<a href="http://www.gevent.org/">Gevent</a> to run this on my desktop at TomTom.
+If it is not working, my desktop has probably rebooted due to a Windows Update. You can contact
+<a href="mailto:dion.nicolaas@tomtom.com">Dion Nicolaas</a> when that happens, except that you cannot read this
+information then. You can also contact me if you have praise, criticism or feature requests.
+</p>
+<p>
+<b>Share and enjoy!</b>
+</p>
+{% endblock %}

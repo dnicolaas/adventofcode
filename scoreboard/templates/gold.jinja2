@@ -1,0 +1,32 @@
+{% extends "base.jinja2" %}
+
+{% block title %}Time to Second Star{% endblock %}
+{% block content %}
+<p>
+<a href="{{ url_for('gold_per_day', year=year) }}">Per Day</a>
+</p>
+<p>
+Below is the gold star score board for  {{ year }}. For each contestant, you can see
+how long it took them to get the <span class="gold">second star</span> after the <span class="silver">first star</span>.
+The scoreboard is ordered by number of stars scored, then the time it took you to score the second stars;
+that way you can see who could still pass you on the score board.
+</p>
+<p>
+You can also see the <a href="{{ url_for('scores', year=year) }}">leaderboard</a>, or the <a href="{{ url_for('stats', year=year) }}">completion statistics</a>
+for each day.
+</p>
+<pre>
+{% if gold_star_delta == None %}<b>No scores yet...</b>{% else -%}
+Time to get the <span class="gold">second star</span>, over all days:
+
+{% for name, time, stars in gold_star_delta %}{{ "%3d"|format(loop.index) }}) {% for star in stars -%}
+                                                                                    {% if star == 2 %}<span class="gold">*</span>{% endif -%}
+                                                                                    {% if star == 1 %}<span class="silver">*</span>{% endif -%}
+                                                                                    {% if star == 0 %}<span class="unlocked">*</span>{% endif -%}
+                                                                                    {% if star == -1 %} {% endif -%}
+                                                                                    {% endfor %} {% if time < 100000000000 %}<span class="transparent">{{ "%8s" | format(time | formatduration) }}</span>{%else -%}
+                                                                                                                             <span class="unlocked">{{ "%8s" | format((time - 100000000000) | formatduration) }}</span>{% endif %}  {{ name }}
+{% endfor %}
+{% endif -%}
+</pre>
+{% endblock %}

@@ -1,0 +1,42 @@
+body {
+    background: black;
+    font-family: "Courier New", monospace;
+    font-size: 14pt;
+    color: #cccccc;
+}
+pre {
+    font-family: "Courier New", monospace;
+    font-size: 14pt;
+}
+p {
+    width: 76ch;
+}
+a {
+    text-decoration: none;
+    color: #009900;
+}
+a:hover, a:focus {
+  color: #99ff99;
+}
+h1 {
+  display: inline-block;
+  text-decoration: none;
+  color: #00cc00;
+  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+h1 a:hover, h1 a:focus {
+  color: #99ff99;
+  text-shadow: 0 0 2px #99ff99, 0 0 5px #99ff99;
+}
+.transparent {
+    opacity: .5;
+}
+.gold {
+    color: #ffff66;
+}
+.silver {
+    color: #9999cc;
+}
+.unlocked {
+    color: #333333;
+}

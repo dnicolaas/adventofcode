@@ -1,0 +1,24 @@
+{% macro year_link(year) -%}
+{% if request.endpoint in ('about', 'index', None) -%}
+<a href="{{ url_for('scores', year=year) }}">[{{ year }}]</a>
+{%- else -%}
+<a href="{{ url_for(request.endpoint, year=year) }}">[{{ year }}]</a>
+{%- endif -%}
+{% endmacro -%}
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>{% block title %}{% endblock %} - Advent of Code {{ year }} @ TomTom</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='aoc.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+<body>
+<pre>
+<b><a href="/">Advent of Code @ TomTom</a></b>   <a href="{{ url_for('about') }}">[About]</a>  {{ scoreboard_name }}
+<b><a href="{{ request.path }}">{{ "%23s"|format(self.title()) }}</a></b>   {% for y in YEARSSUPPORTED %}{{ year_link(y) }}  {% endfor %}
+
+</pre>
+{% block content %}{% endblock %}
+</body>
+</html>

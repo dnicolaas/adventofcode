@@ -1,0 +1,26 @@
+{% extends "base.jinja2" %}
+
+{% block title %}Time to Second Star Per Day{% endblock %}
+{% block content %}
+<p>
+<a href="{{ url_for('gold', year=year) }}">Time to Second Star</a>
+</p>
+<p>
+Below is the gold star score board for each day in {{ year }}. For each contestant, you can see
+how long it took them to get the <span class="gold">second star</span> after the <span class="silver">first star</span>.
+</p>
+<p>
+You can also see the <a href="{{ url_for('scores', year=year) }}">leaderboard</a>, or the <a href="{{ url_for('stats', year=year) }}">completion statistics</a>
+for each day.
+</p>
+<pre>
+{% if gold_star_delta == None %}<b>No scores yet...</b>{% else -%}
+{% for day in gold_star_delta.keys() | sort(reverse=True) %}
+Time to get the <span class="gold">second star</span> on Day {{ day }}:
+
+{% for name, time in gold_star_delta[day] %}{{ "%3d"|format(loop.index) }}) <span class="transparent">{{ "%8s" | format(time | formatduration) }}</span>  {{ name }}
+{% endfor %}
+{% endfor -%}
+{% endif -%}
+</pre>
+{% endblock %}

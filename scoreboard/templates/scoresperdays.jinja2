@@ -1,0 +1,29 @@
+{% extends "base.jinja2" %}
+
+{% block title %}Scores per Day{% endblock %}
+{% block content %}
+<p>
+<a href="{{ url_for('scores', year=year) }}">Leaderboard</a>
+</p>
+<p>
+Below is the score board for each day in {{ year }}. For each contestant, you can see
+at what time they completed the puzzles for each day.
+</p>
+<p>
+You can also see the <a href="{{ url_for('stats', year=year) }}">completion statistics</a>, or the <a href="{{ url_for('gold', year=year) }}">time to get the second star</a>.
+</p>
+<pre>
+{% if star1 == None %}<b>No scores yet...</b>{% else -%}
+{% for day in star1.keys() | sort(reverse=True) %}
+First to get <span class="gold">both stars</span> on Day {{ day }}:
+
+{% for name, time in star2[day] | sort(attribute=1) %}{{ "%3d"|format(loop.index) }}) <span class="transparent">{{ time | formatdatetime }}</span>  {{ name }}
+{% endfor %}
+First to get the <span class="silver">first star</span> on Day {{ day }}:
+
+{% for name, time in star1[day] | sort(attribute=1) %}{{ "%3d"|format(loop.index) }}) <span class="transparent">{{ time | formatdatetime }}</span>  {{ name }}
+{% endfor %}
+{% endfor -%}
+{% endif -%}
+</pre>
+{% endblock %}

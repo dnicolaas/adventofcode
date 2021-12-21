@@ -1,0 +1,25 @@
+{% extends "base.jinja2" %}
+
+{% block title %}Completion Statistics{% endblock %}
+{% block content %}
+<p>
+Here are the completion statistics for our private score board. Each <span class="gold">gold</span>
+star represents a contestant that has completed both parts of the puzzle,
+while a <span class="silver">silver</span> star only finished the first part.
+</p>
+<p>
+You can also see the <a href="{{ url_for('gold', year=year) }}">time to get the second star</a>, or the
+<a href="{{ url_for('scores', year=year) }}">leaderboard</a> for this group.
+</p>
+<pre>
+{% if completion == None %}<b>No scores yet...</b>{% else -%}
+{% for gold, silver, no in completion  -%}
+{% if gold == 0 and silver == 0 -%}
+<span class="transparent"> {{ "%2d"|format(26 - loop.index) }}   0   0</span>
+{% else -%}
+{{ '' }} {{ "%2d"|format(26 - loop.index) }} <span class="gold">{{ "%3d"|format(gold) }}</span> <span class="silver">{{ "%3d"|format(silver) }}</span>  <span class="gold">{{ '*' * gold }}</span><span class="silver">{{ '*' * silver }}</span>
+{% endif -%}
+{% endfor %}
+{% endif %}
+</pre>
+{% endblock %}
